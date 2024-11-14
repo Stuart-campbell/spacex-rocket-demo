@@ -32,3 +32,4 @@ Next steps
 Make network loaded images work in previews
 Give better information on errors to help user with the cause
 Add basic large screen support
+Cache rocket load so you don't need to get the details if you have already loaded the list
