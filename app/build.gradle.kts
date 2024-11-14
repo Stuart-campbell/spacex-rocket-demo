@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.kotlin.kapt)
+    id("com.karumi.kotlin-snapshot")
 }
 
 android {
@@ -71,6 +72,7 @@ dependencies {
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
+    testImplementation(libs.junit.jupiter)
     kapt(libs.hilt.android.compiler)
 
     implementation(libs.ktor.client.core)
@@ -79,6 +81,8 @@ dependencies {
     implementation(libs.ktor.serialization.json)
 
     testImplementation(libs.junit)
+    testImplementation(libs.ktor.client.mock)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
