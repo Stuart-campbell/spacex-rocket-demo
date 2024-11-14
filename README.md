@@ -1,5 +1,10 @@
 # spacex-rocket-demo
 
+### Home
+![Home](docs/home.png)
+
+### Details
+![Details](docs/details.png)
 
 ### Architecture
 Modern App Architecture
