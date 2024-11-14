@@ -19,4 +19,11 @@ class RocketApi @Inject constructor(
             }
         }.body()
 
+    suspend fun getRocket(id: String): RocketDto =
+        client.get {
+            url {
+                path("rockets", id)
+            }
+        }.body()
+
 }

@@ -3,6 +3,13 @@
 
     <string name="home_title">Space X Rockets</string>
 
+    <string name="details_description_title">Description</string>
+    <string name="details_height_title">Height</string>
+    <string name="details_mass_title">Mass</string>
+    <string name="details_payload_title">Max Payload</string>
+    <string name="details_more_info_title">More Info</string>
+    <string name="details_wikipedia_title">Wikipedia</string>
+
     <string name="error_title">Might not be rocket science but something\'s gone wrong!</string>
     <string name="error_button">Retry</string>
 

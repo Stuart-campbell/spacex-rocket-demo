@@ -1,7 +1,11 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.spacex.rockets.home
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.Image
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,7 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -28,9 +31,14 @@ import com.spacex.rockets.R
 import com.spacex.rockets.domain.rockets.Rocket
 import com.spacex.rockets.ui.components.ErrorComponent
 import com.spacex.rockets.ui.components.LoadingComponent
+import com.spacex.rockets.ui.components.SharedImageElement
 
 @Composable
-fun HomeScreen(openDetails: (String) -> Unit) {
+fun HomeScreen(
+    openDetails: (Rocket) -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedVisibilityScope: AnimatedVisibilityScope
+) {
 
     val viewModel = hiltViewModel<HomeViewModel>()
     LaunchedEffect(Unit) {
@@ -40,20 +48,22 @@ fun HomeScreen(openDetails: (String) -> Unit) {
     HomeContent(
         state = viewModel.state,
         openDetails = openDetails,
-        retry = { viewModel.loadRockets() }
+        retry = { viewModel.loadRockets() },
+        sharedImageModifier = SharedImageElement.modifierProvider(sharedTransitionScope, animatedVisibilityScope)
     )
 }
 
 @Composable
 private fun HomeContent(
     state: HomeViewModel.State,
-    openDetails: (String) -> Unit,
-    retry: () -> Unit
+    openDetails: (Rocket) -> Unit,
+    retry: () -> Unit,
+    sharedImageModifier: @Composable (String?) -> Modifier
 ) {
     AnimatedContent(targetState = state, label = "loading-animation") {
         when (it) {
             is HomeViewModel.State.Error -> ErrorComponent(it.exception, retry)
-            is HomeViewModel.State.Loaded -> HomeLoadedContent(it.rockets, openDetails)
+            is HomeViewModel.State.Loaded -> HomeLoadedContent(it.rockets, openDetails, sharedImageModifier)
             HomeViewModel.State.Loading -> LoadingComponent()
         }
     }
@@ -62,7 +72,8 @@ private fun HomeContent(
 @Composable
 private fun HomeLoadedContent(
     rockets: List<Rocket>,
-    openDetails: (String) -> Unit,
+    openDetails: (Rocket) -> Unit,
+    sharedImageModifier: @Composable (String?) -> Modifier
 ) {
     LazyColumn(
         modifier = Modifier
@@ -77,7 +88,7 @@ private fun HomeLoadedContent(
             )
         }
         items(rockets) { rocket ->
-            RocketItem(rocket = rocket, openDetails = openDetails)
+            RocketItem(rocket = rocket, openDetails = openDetails, sharedImageModifier = sharedImageModifier)
         }
     }
 }
@@ -85,16 +96,19 @@ private fun HomeLoadedContent(
 @Composable
 private fun RocketItem(
     rocket: Rocket,
-    openDetails: (String) -> Unit,
+    openDetails: (Rocket) -> Unit,
+    sharedImageModifier: @Composable (String?) -> Modifier
 ) {
-    Card(onClick = { openDetails(rocket.id) }) {
+    Card(onClick = { openDetails(rocket) }) {
         Column {
+            val image = rocket.images.firstOrNull()
             AsyncImage(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(200.dp)
+                    .then(sharedImageModifier(image)),
                 contentScale = ContentScale.Crop,
-                model = rocket.image,
+                model = image,
                 contentDescription = null
             )
             Text(
@@ -115,6 +129,7 @@ fun UserProfilePreview(
     HomeContent(
         state = state,
         openDetails = {},
-        retry = {}
+        retry = {},
+        sharedImageModifier = { Modifier }
     )
 }

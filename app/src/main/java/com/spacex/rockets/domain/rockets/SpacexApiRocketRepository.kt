@@ -16,4 +16,10 @@ class SpacexApiRocketRepository @Inject constructor(
         }
     }
 
+    override suspend fun getRocket(id: String): Rocket {
+        with(mapper) {
+            return rocketApi.getRocket(id).toRocket()
+        }
+    }
+
 }

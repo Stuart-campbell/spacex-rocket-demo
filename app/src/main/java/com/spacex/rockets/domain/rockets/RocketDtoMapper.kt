@@ -11,7 +11,12 @@ class RocketDtoMapper @Inject constructor() {
         return Rocket(
             id = id,
             title = name,
-            image = images.firstOrNull()
+            images = images,
+            description = description,
+            heightMeters = height.meters,
+            massKg = mass.kg,
+            maxPayloadMassKg = payloadWeights.maxOf { it.kg },
+            wikipedia = wikipedia
         )
     }
 

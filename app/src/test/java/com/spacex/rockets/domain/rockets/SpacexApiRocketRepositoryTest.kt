@@ -17,13 +17,24 @@ import org.junit.Test
 
 class SpacexApiRocketRepositoryTest {
 
-
     @Test
     fun getRockets() {
         runBlocking {
             val repository = rocketRepository(rockets)
 
             val actual = repository.getRockets()
+
+            actual.matchWithSnapshot()
+        }
+    }
+
+
+    @Test
+    fun getRocket() {
+        runBlocking {
+            val repository = rocketRepository(rocket)
+
+            val actual = repository.getRocket("5e9d0d95eda69955f709d1eb")
 
             actual.matchWithSnapshot()
         }
