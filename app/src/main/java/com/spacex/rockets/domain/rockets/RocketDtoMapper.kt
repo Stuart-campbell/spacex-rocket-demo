@@ -11,7 +11,7 @@ class RocketDtoMapper @Inject constructor() {
         return Rocket(
             id = id,
             title = name,
-            image = images.firstOrNull()
+            images = images
         )
     }
 

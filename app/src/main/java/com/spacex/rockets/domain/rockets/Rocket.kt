@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class Rocket(
     val id: String,
     val title: String,
-    val image: String?
+    val images: List<String>
 )
