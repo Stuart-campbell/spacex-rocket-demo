@@ -9,11 +9,11 @@
 ### Architecture
 Modern App Architecture
 
-Api or Cache
-Repository (dependency inversion point)
-Use Case (optional) not required for examples as no complex logic to encapsulate
-View Model
-UI
+- Api or Cache
+- Repository (dependency inversion point)
+- Use Case (optional) not required for examples as no complex logic to encapsulate
+- View Model
+- UI
 
 ### Tools
 #### Dependency Injection
@@ -34,7 +34,7 @@ Next steps
 - add screenshot tests for UI
 
 ### Other TODO
-Make network loaded images work in previews
-Give better information on errors to help user with the cause
-Add basic large screen support
-Cache rocket load so you don't need to get the details if you have already loaded the list
+- Make network loaded images work in previews
+- Give better information on errors to help user with the cause
+- Add basic large screen support
+- Cache rocket load so you don't need to get the details if you have already loaded the list
