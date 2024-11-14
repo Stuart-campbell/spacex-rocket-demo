@@ -20,3 +20,6 @@ kotlinx
 #### Image download
 coil
 
+### Testing
+KotlinSnapshot - using the API json as input then validate it is converted to our expected domain by recording a known good snapshot
+

@@ -9,7 +9,9 @@ class RocketDtoMapper @Inject constructor() {
 
     fun RocketDto.toRocket(): Rocket {
         return Rocket(
-            id = id
+            id = id,
+            title = name,
+            image = images.firstOrNull()
         )
     }
 

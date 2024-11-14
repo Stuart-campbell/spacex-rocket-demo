@@ -4,5 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Rocket(
-    val id: String
+    val id: String,
+    val title: String,
+    val image: String?
 )

@@ -31,6 +31,7 @@ class HomeViewModel @Inject constructor(
             state = try {
                 State.Loaded(rocketRepository.getRockets())
             } catch (ex: Exception) {
+                ex.printStackTrace()
                 State.Error(ex)
             }
         }

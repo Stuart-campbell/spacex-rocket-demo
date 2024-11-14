@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Rockets</string>
+
+    <string name="home_title">Space X Rockets</string>
+
+    <string name="error_title">Might not be rocket science but something\'s gone wrong!</string>
+    <string name="error_button">Retry</string>
+
 </resources>
